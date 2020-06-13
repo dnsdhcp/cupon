@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initRecyclerView();
+
         initCountryText();
         initSwitchers();
         initGreenDot();

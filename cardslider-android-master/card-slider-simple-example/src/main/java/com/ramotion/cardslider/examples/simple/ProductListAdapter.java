@@ -4,29 +4,52 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
+import java.util.List;
 
-public class ProductListAdapter extends
-		RecyclerView.Adapter<ProductListAdapter.WordViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.WordViewHolder> {
 
-	private final LinkedList<String> titlelist;
-	private final LinkedList<String> pricelist;
-	private final LayoutInflater mInflater;
+	private Context mContext;
+	private List<Item> mItemlist;
+	private LayoutInflater mInflater;
 
-	class WordViewHolder extends RecyclerView.ViewHolder
-			implements View.OnClickListener {
+	public ProductListAdapter(Context context, List<Item> Itemlist) {
+		mContext = context;
+		mInflater = LayoutInflater.from(context);
+		mItemlist = Itemlist;
+	}
+
+	@Override
+	public void onBindViewHolder(ProductListAdapter.WordViewHolder holder, int position) {
+
+		// Retrieve the data for that position.
+		String name = mItemlist.get(position).getTitle();
+		String money = mItemlist.get(position).getPrice();
+		int picture = mItemlist.get(position).getDrawableId();
+		// Add the data to the view holder.
+		holder.title.setText(name);
+		holder.price.setText(money);
+		holder.food.setImageResource(picture);
+	}
+
+	class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
 		public final TextView title;
 		public final TextView price;
+		public final ImageView food;
 		final ProductListAdapter mAdapter;
 
 		public WordViewHolder(View itemView, ProductListAdapter adapter) {
 			super(itemView);
+
 			title = itemView.findViewById(R.id.title);
 			price = itemView.findViewById(R.id.price);
+			food = itemView.findViewById(R.id.food_img);
 
 			this.mAdapter = adapter;
 			itemView.setOnClickListener(this);
@@ -48,12 +71,6 @@ public class ProductListAdapter extends
 		}
 	}
 
-	public ProductListAdapter(Context context, LinkedList<String> titlelist, LinkedList<String> pricelist) {
-		mInflater = LayoutInflater.from(context);
-		this.titlelist = titlelist;
-		this.pricelist = pricelist;
-	}
-
 	@Override
 	public ProductListAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent,
 	                                                            int viewType) {
@@ -63,19 +80,10 @@ public class ProductListAdapter extends
 		return new WordViewHolder(mItemView, this);
 	}
 
-	@Override
-	public void onBindViewHolder(ProductListAdapter.WordViewHolder holder,
-	                             int position) {
-		// Retrieve the data for that position.
-		String name = titlelist.get(position);
-		String money = pricelist.get(position);
-		// Add the data to the view holder.
-		holder.title.setText(name);
-		holder.price.setText(money);
-	}
+
 
 	@Override
 	public int getItemCount() {
-		return titlelist.size();
+		return mItemlist.size();
 	}
 }

@@ -1,6 +1,7 @@
 package com.ramotion.cardslider.examples.simple;
 
 import android.animation.ObjectAnimator;
+import android.content.ClipData;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTask.Listener {
 
@@ -28,9 +31,8 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private DecodeBitmapTask decodeBitmapTask;
     private RecyclerView mRecyclerView;
     private ProductListAdapter mAdapter;
-    private final LinkedList<String> mtitlelist = new LinkedList<>();
-    private final LinkedList<String> pricelist = new LinkedList<>();
 
+    private List<Item> mItem = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,10 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
             return;
         }
 
-        // Recyclerview
-        for(int i=0;i<10;i++){
-            mtitlelist.addLast("Mc");
-            pricelist.addLast("$100");
-        }
+        initItem();
+
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new ProductListAdapter(this, mtitlelist,pricelist);
+        mAdapter = new ProductListAdapter(this, mItem);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
@@ -95,7 +94,26 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         }
 
     }
+    private  void initItem(){
 
+        mItem = new ArrayList<Item>();
+
+        Item one = new Item("豬肉滿福堡+蛋","$58",R.drawable.mcmuffin_sausage_egg);
+        Item two = new Item("豬肉滿福堡","$48",R.drawable.mcmuffin_sausage);
+        Item three = new Item("無敵豬肉滿福堡+蛋","$78",R.drawable.mcmuffin_twosausage_egg);
+        Item four = new Item("滿福堡","$50",R.drawable.mcmuffin);
+        Item five = new Item("香鷄滿福堡+蛋","$1=58",R.drawable.mcmuffin_chicken_egg);
+        Item six = new Item("香鷄滿福堡","$48",R.drawable.mcmuffin_chicken);
+        Item seven = new Item("清蔬滿福堡","$58",R.drawable.mcmuffin_vegetable);
+
+        mItem.add(one);
+        mItem.add(two);
+        mItem.add(three);
+        mItem.add(four);
+        mItem.add(five);
+        mItem.add(six);
+        mItem.add(seven);
+    }
     @Override
     protected void onPause() {
         super.onPause();
