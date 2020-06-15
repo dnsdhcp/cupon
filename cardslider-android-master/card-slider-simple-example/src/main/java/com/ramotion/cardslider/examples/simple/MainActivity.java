@@ -14,6 +14,8 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
@@ -74,7 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
         initCountryText();
         initSwitchers();
-        initGreenDot();
+////        initGreenDot();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.frameLayout, new MapsActivity()).commit();
+//        Intent intent = new Intent(this, MapsActivity.class);
+//        startActivity(intent);
+
     }
 
     private void initRecyclerView() {
@@ -123,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
         descriptionsSwitcher.setFactory(new TextViewFactory(R.style.DescriptionTextView, false));
         descriptionsSwitcher.setCurrentText(getString(descriptions[0]));
 
-        mapSwitcher = (ImageSwitcher) findViewById(R.id.ts_map);
-        mapSwitcher.setInAnimation(this, R.anim.fade_in);
-        mapSwitcher.setOutAnimation(this, R.anim.fade_out);
-        mapSwitcher.setFactory(new ImageViewFactory());
+//        mapSwitcher = (ImageSwitcher) findViewById(R.id.ts_map);
+//        mapSwitcher.setInAnimation(this, R.anim.fade_in);
+//        mapSwitcher.setOutAnimation(this, R.anim.fade_out);
+//        mapSwitcher.setFactory(new ImageViewFactory());
         //mapSwitcher.setImageResource(maps[0]);
 
         mapLoadListener = new DecodeBitmapTask.Listener() {
@@ -154,32 +162,32 @@ public class MainActivity extends AppCompatActivity {
         country2TextView.setTypeface(Typeface.createFromAsset(getAssets(), "open-sans-extrabold.ttf"));
     }
 
-    private void initGreenDot() {
-        mapSwitcher.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mapSwitcher.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                final int viewLeft = mapSwitcher.getLeft();
-                final int viewTop = mapSwitcher.getTop() + mapSwitcher.getHeight() / 3;
-
-                final int border = 100;
-                final int xRange = Math.max(1, mapSwitcher.getWidth() - border * 2);
-                final int yRange = Math.max(1, (mapSwitcher.getHeight() / 3) * 2 - border * 2);
-
-                final Random rnd = new Random();
-
-                for (int i = 0, cnt = dotCoords.length; i < cnt; i++) {
-                    dotCoords[i][0] = viewLeft + border + rnd.nextInt(xRange);
-                    dotCoords[i][1] = viewTop + border + rnd.nextInt(yRange);
-                }
-
-                greenDot = findViewById(R.id.green_dot);
-                greenDot.setX(dotCoords[0][0]);
-                greenDot.setY(dotCoords[0][1]);
-            }
-        });
-    }
+//    private void initGreenDot() {
+//        mapSwitcher.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                mapSwitcher.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//
+//                final int viewLeft = mapSwitcher.getLeft();
+//                final int viewTop = mapSwitcher.getTop() + mapSwitcher.getHeight() / 3;
+//
+//                final int border = 100;
+//                final int xRange = Math.max(1, mapSwitcher.getWidth() - border * 2);
+//                final int yRange = Math.max(1, (mapSwitcher.getHeight() / 3) * 2 - border * 2);
+//
+//                final Random rnd = new Random();
+//
+//                for (int i = 0, cnt = dotCoords.length; i < cnt; i++) {
+//                    dotCoords[i][0] = viewLeft + border + rnd.nextInt(xRange);
+//                    dotCoords[i][1] = viewTop + border + rnd.nextInt(yRange);
+//                }
+//
+//                greenDot = findViewById(R.id.green_dot);
+//                greenDot.setX(dotCoords[0][0]);
+//                greenDot.setY(dotCoords[0][1]);
+//            }
+//        });
+//    }
 
     private void setCountryText(String text, boolean left2right) {
         final TextView invisibleText;

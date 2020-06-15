@@ -121,13 +121,13 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         heart_Item.add( new Item("特級奶綠","M:$40  L:50",R.drawable.milk_greentea) );
         heart_Item.add( new Item("烏龍奶茶","M:$40  L:50",R.drawable.oolong_milktea) );
         heart_Item.add( new Item("珍珠奶茶","M:$40  L:50",R.drawable.pearl_milktea) );
-        heart_Item.add( new Item("粉圓奶茶","M:$40  L:50",R.drawable.tapiocapearl_milktea) );
+        heart_Item.add( new Item("粉圓奶茶","M:$40   L:50",R.drawable.tapiocapearl_milktea) );
         heart_Item.add( new Item("仙草凍奶茶","M:$40  L:50",R.drawable.grass_blacktea) );
         heart_Item.add( new Item("布丁奶茶","M:$40  L:50",R.drawable.pudding_milktea) );
         heart_Item.add( new Item("椰果奶茶","M:$40  L:50",R.drawable.cocunut_milktea) );
         heart_Item.add( new Item("蜂蜜奶茶","M:$45  L:60",R.drawable.honey_milktea) );
         heart_Item.add( new Item("暗黑水晶奶茶","M:$45  L:60",R.drawable.blackcrystal_milktea) );
-        heart_Item.add( new Item("黃金地瓜奶茶","       L:75",R.drawable.sweetpotato_milktea) );
+        heart_Item.add( new Item("黃金地瓜奶茶","L:75",R.drawable.sweetpotato_milktea) );
         heart_Item.add( new Item("芝麻奶茶","M:$40  L:50",R.drawable.seasame_milktea) );
 
     }
