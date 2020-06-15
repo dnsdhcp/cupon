@@ -36,7 +36,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private final int[][] dotCoords = new int[5][2];
-    private final int[] pics = {R.drawable.mcdonalds_logo, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5};
+    private final int[] pics = {R.drawable.mcdonalds_logo, R.drawable.heart_logo, R.drawable.p3, R.drawable.p4, R.drawable.p5};
     private final int[] maps = {R.drawable.map_paris, R.drawable.map_seoul, R.drawable.map_london, R.drawable.map_beijing, R.drawable.map_greece};
     private final int[] descriptions = {R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5};
     private final String[] countries = {"PARIS", "SEOUL", "LONDON", "BEIJING", "THIRA"};
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         mapSwitcher.setInAnimation(this, R.anim.fade_in);
         mapSwitcher.setOutAnimation(this, R.anim.fade_out);
         mapSwitcher.setFactory(new ImageViewFactory());
-        mapSwitcher.setImageResource(maps[0]);
+        //mapSwitcher.setImageResource(maps[0]);
 
         mapLoadListener = new DecodeBitmapTask.Listener() {
             @Override
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
         descriptionsSwitcher.setText(getString(descriptions[pos % descriptions.length]));
 
-        showMap(maps[pos % maps.length]);
+        //showMap(maps[pos % maps.length]);
 
         ViewCompat.animate(greenDot)
                 .translationX(dotCoords[pos % dotCoords.length][0])

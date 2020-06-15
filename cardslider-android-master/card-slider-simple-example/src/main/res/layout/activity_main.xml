@@ -105,11 +105,16 @@
             android:layout_height="90dp"
             android:background="@android:color/white"/>
 
-        <View
+
+        <com.google.android.gms.maps.MapView
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@drawable/gradient_map"
-            android:layout_below="@+id/gradient_top"/>
+            tools:context=".MapsActivity" />
+
+
 
         <TextSwitcher
             android:id="@+id/ts_description"
