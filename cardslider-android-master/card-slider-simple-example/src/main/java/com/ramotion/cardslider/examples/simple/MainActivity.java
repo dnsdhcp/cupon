@@ -44,12 +44,12 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private final int[][] dotCoords = new int[5][2];
-    private final int[] pics = {R.drawable.mc_small_logo, R.drawable.heart_small_logo, R.drawable.p3, R.drawable.p4, R.drawable.p5};
+    private final int[] pics = {R.drawable.mc_small_logo, R.drawable.kfc_small_logo, R.drawable.heart_small_logo, R.drawable.coco_small_logo, R.drawable.misterdonut_small_logo};
     private final int[] descriptions = {R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5};
-    private final String[] countries = {"McDonald", "清新福全", "LONDON", "BEIJING", "THIRA"};
-    private final String[] places = {"刷中信LINE Pay卡享回饋", "守護人民的英雄辛苦了！", "Tower Bridge", "Temple of Heaven", "Aegeana Sea"};
+    private final String[] countries = {"麥當勞", "肯德基", "清心福全", "Coco", "Mister Donut"};
+    private final String[] places = {"刷中信LINE Pay卡享回饋", "畢業季揪團享優惠送很大", "守護人民的英雄辛苦了！", "戀上雲朵", "Mister Donut×專科"};
     private final String[] temperatures = {"21°C", "19°C", "17°C", "23°C", "20°C"};
-    private final String[] times = {"Jan 1 - Dec 31    0:00-24:00", "Jan 1 - Dec 31    8:30-22:00", "Mar 8 - May 21    7:00-18:00"};
+    private final String[] times = {"週一到週日    0:00-24:00", "週一到週日    0:00-24:00", "週一到週日    8:30-22:00", "週一到週日  11:00~22:45", "週一到週日  11:00-22:00"};
 
     private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 20, new OnCardClickListener());
 

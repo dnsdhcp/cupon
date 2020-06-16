@@ -1,7 +1,6 @@
 package com.ramotion.cardslider.examples.simple;
 
 import android.animation.ObjectAnimator;
-import android.content.ClipData;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.transition.Transition;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.ramotion.cardslider.examples.simple.utils.DecodeBitmapTask;
 
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTask.Listener {
@@ -34,7 +31,10 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
 //    private ProductListAdapter heart_Adapter;
 
     private List<Item> mc_Item = new ArrayList<Item>();
+    private List<Item> kfc_Item = new ArrayList<Item>();
     private List<Item> heart_Item = new ArrayList<Item>();
+    private List<Item> coco_Item = new ArrayList<Item>();
+    private List<Item> misterdonut_Item = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,6 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private  void initItem(){
 
         mc_Item = new ArrayList<Item>();
-
         mc_Item.add( new Item("蕈菇安格斯黑牛堡","$119",R.drawable.mushroom_blackbeef) );
         mc_Item.add( new Item("BLT嫩煎鷄腿堡","$109",R.drawable.blt_chicken) );
         mc_Item.add( new Item("大麥克","$72",R.drawable.big_mac) );
@@ -106,9 +105,14 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         mc_Item.add( new Item("香鷄滿福堡","$48",R.drawable.mcmuffin_chicken) );
         mc_Item.add( new Item("清蔬滿福堡","$58",R.drawable.mcmuffin_vegetable) );
 
+        kfc_Item = new ArrayList<Item>();
+        kfc_Item.add( new Item("金沙黑爵士咔啦雞腿堡","$129",R.drawable.saltedegg_black_burger) );
+        kfc_Item.add( new Item("花生熔岩咔啦雞腿堡","$129",R.drawable.penut_chicken_burger) );
+        kfc_Item.add( new Item("義式香草紙包雞","$116",R.drawable.papperwrapped_chicken) );
+        kfc_Item.add( new Item("紐奧良烤雞腿堡","$109",R.drawable.roast_chicken_burger) );
+        kfc_Item.add( new Item("墨西哥莎莎霸王捲","$109",R.drawable.mexio_burrito) );
 
         heart_Item = new ArrayList<Item>();
-
         heart_Item.add( new Item("太妃鴛鴦奶茶","M:$60  L:70",R.drawable.taffee_milktea) );
         heart_Item.add( new Item("錫蘭奶紅","M:$40  L:50",R.drawable.ceylon_blacktea_milk) );
         heart_Item.add( new Item("特級奶綠","M:$40  L:50",R.drawable.milk_greentea) );
@@ -123,6 +127,19 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         heart_Item.add( new Item("黃金地瓜奶茶","L:75",R.drawable.sweetpotato_milktea) );
         heart_Item.add( new Item("芝麻奶茶","M:$40  L:50",R.drawable.seasame_milktea) );
 
+        coco_Item = new ArrayList<Item>();
+        coco_Item.add( new Item("奶茶三兄弟","$45",R.drawable.three_brothers_milktea) );
+        coco_Item.add( new Item("芋頭牛奶","$55",R.drawable.taro_milk) );
+        coco_Item.add( new Item("金桔檸檬","$50",R.drawable.kumquat_lemon) );
+        coco_Item.add( new Item("芒果養樂多","$55",R.drawable.mango_greentea) );
+        coco_Item.add( new Item("拿鐵咖啡","M:$50  L:60",R.drawable.latte_coffee) );
+
+        misterdonut_Item = new ArrayList<Item>();
+        misterdonut_Item.add( new Item("精靈求波堤","$55",R.drawable.pokeball_ponde) );
+        misterdonut_Item.add( new Item("小蜜蜂波堤","$45",R.drawable.bee_ponde) );
+        misterdonut_Item.add( new Item("辻利抹茶芝麻波堤","$116",R.drawable.matcha_seasame_ponde) );
+        misterdonut_Item.add( new Item("辻利抹茶餅乾巧貝","$109",R.drawable.matcha_cookie_cream) );
+        misterdonut_Item.add( new Item("起司火腿派","$50",R.drawable.cheese_ham_pie) );
     }
     @Override
     protected void onPause() {
@@ -150,14 +167,23 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
                 bigResId = R.drawable.mcdonalds_logo;
                 product_Adapter = new ProductListAdapter(this, mc_Item);
                 break;
+            case R.drawable.kfc_small_logo:
+                bigResId = R.drawable.kfc_logo;
+                product_Adapter = new ProductListAdapter(this, kfc_Item);
+                break;
             case R.drawable.heart_small_logo:
                 bigResId = R.drawable.heart_logo;
                 product_Adapter = new ProductListAdapter(this, heart_Item);
                 break;
-            case R.drawable.p3: bigResId = R.drawable.p3_big; break;
-            case R.drawable.p4: bigResId = R.drawable.p4_big; break;
-            case R.drawable.p5: bigResId = R.drawable.p5_big; break;
-            default: bigResId = R.drawable.heart_logo;
+            case R.drawable.coco_small_logo:
+                bigResId = R.drawable.coco_logo;
+                product_Adapter = new ProductListAdapter(this, coco_Item);
+                break;
+            case R.drawable.misterdonut_small_logo:
+                bigResId = R.drawable.misterdonut_small_logo;
+                product_Adapter = new ProductListAdapter(this, misterdonut_Item);
+                break;
+            default: bigResId = R.drawable.mc_small_logo;
         }
 
         mRecyclerView.setAdapter(product_Adapter);
