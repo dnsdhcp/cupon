@@ -94,6 +94,10 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
 
         mc_Item = new ArrayList<Item>();
 
+        mc_Item.add( new Item("蕈菇安格斯黑牛堡","$119",R.drawable.mushroom_blackbeef) );
+        mc_Item.add( new Item("BLT嫩煎鷄腿堡","$109",R.drawable.blt_chicken) );
+        mc_Item.add( new Item("大麥克","$72",R.drawable.big_mac) );
+        mc_Item.add( new Item("千島黃金蝦堡","$69",R.drawable.shrimp_burger) );
         mc_Item.add( new Item("豬肉滿福堡+蛋","$58",R.drawable.mcmuffin_sausage_egg) );
         mc_Item.add( new Item("豬肉滿福堡","$48",R.drawable.mcmuffin_sausage) );
         mc_Item.add( new Item("無敵豬肉滿福堡+蛋","$78",R.drawable.mcmuffin_twosausage_egg) );
@@ -142,11 +146,11 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private void loadFullSizeBitmap(int smallResId) {
         int bigResId;
         switch (smallResId) {
-            case R.drawable.mcdonalds_logo:
+            case R.drawable.mc_small_logo:
                 bigResId = R.drawable.mcdonalds_logo;
                 product_Adapter = new ProductListAdapter(this, mc_Item);
                 break;
-            case R.drawable.heart_logo:
+            case R.drawable.heart_small_logo:
                 bigResId = R.drawable.heart_logo;
                 product_Adapter = new ProductListAdapter(this, heart_Item);
                 break;
