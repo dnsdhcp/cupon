@@ -30,8 +30,8 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private ImageView imageView;
     private DecodeBitmapTask decodeBitmapTask;
     private RecyclerView mRecyclerView;
-    private ProductListAdapter mc_Adapter;
-    private ProductListAdapter heart_Adapter;
+    private ProductListAdapter product_Adapter;
+//    private ProductListAdapter heart_Adapter;
 
     private List<Item> mc_Item = new ArrayList<Item>();
     private List<Item> heart_Item = new ArrayList<Item>();
@@ -50,17 +50,6 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         initItem();
 
         mRecyclerView = findViewById(R.id.recyclerview);
-
-        mc_Adapter = new ProductListAdapter(this, mc_Item);
-        mRecyclerView.setAdapter(mc_Adapter);
-
-        heart_Adapter = new ProductListAdapter(this, heart_Item);
-        mRecyclerView.setAdapter(heart_Adapter);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-
-        mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
         imageView = (ImageView)findViewById(R.id.image);
         imageView.setImageResource(smallResId);
@@ -153,13 +142,25 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private void loadFullSizeBitmap(int smallResId) {
         int bigResId;
         switch (smallResId) {
-            case R.drawable.mcdonalds_logo: bigResId = R.drawable.mcdonalds_logo; break;
-            case R.drawable.heart_logo: bigResId = R.drawable.heart_logo; break;
+            case R.drawable.mcdonalds_logo:
+                bigResId = R.drawable.mcdonalds_logo;
+                product_Adapter = new ProductListAdapter(this, mc_Item);
+                break;
+            case R.drawable.heart_logo:
+                bigResId = R.drawable.heart_logo;
+                product_Adapter = new ProductListAdapter(this, heart_Item);
+                break;
             case R.drawable.p3: bigResId = R.drawable.p3_big; break;
             case R.drawable.p4: bigResId = R.drawable.p4_big; break;
             case R.drawable.p5: bigResId = R.drawable.p5_big; break;
             default: bigResId = R.drawable.heart_logo;
         }
+
+        mRecyclerView.setAdapter(product_Adapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
         final DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
