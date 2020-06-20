@@ -6,6 +6,8 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -33,34 +35,36 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ramotion.cardslider.CardSliderLayoutManager;
 import com.ramotion.cardslider.CardSnapHelper;
 import com.ramotion.cardslider.examples.simple.cards.SliderAdapter;
 import com.ramotion.cardslider.examples.simple.utils.DecodeBitmapTask;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private final int[][] dotCoords = new int[5][2];
     private final int[] pics = {R.drawable.mc_small_logo, R.drawable.kfc_small_logo, R.drawable.heart_small_logo, R.drawable.coco_small_logo, R.drawable.misterdonut_small_logo};
     private final int[] descriptions = {R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5};
-    private final String[] countries = {"麥當勞", "肯德基", "清心福全", "Coco", "Mister Donut"};
+    private final String[] shops = {"麥當勞", "肯德基", "清心福全", "Coco", "Mister Donut"};
     private final String[] places = {"刷中信LINE Pay卡享回饋", "畢業季揪團享優惠送很大", "守護人民的英雄辛苦了！", "戀上雲朵", "Mister Donut×專科"};
     private final String[] temperatures = {"21°C", "19°C", "17°C", "23°C", "20°C"};
     private final String[] times = {"週一到週日    0:00-24:00", "週一到週日    0:00-24:00", "週一到週日    8:30-22:00", "週一到週日  11:00~22:45", "週一到週日  11:00-22:00"};
-
     private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 20, new OnCardClickListener());
+
+    private ArrayList<LatLng> locations = null;
 
     private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
-    private ImageSwitcher mapSwitcher;
     private TextSwitcher temperatureSwitcher;
     private TextSwitcher placeSwitcher;
     private TextSwitcher clockSwitcher;
     private TextSwitcher descriptionsSwitcher;
-    private View greenDot;
 
     private TextView country1TextView;
     private TextView country2TextView;
@@ -68,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int countryOffset2;
     private long countryAnimDuration;
     private int currentPosition;
-
-    private DecodeBitmapTask decodeMapBitmapTask;
-    private DecodeBitmapTask.Listener mapLoadListener;
     private GoogleMap mMap;
 
     @Override
@@ -79,29 +80,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         initRecyclerView();
-
         initCountryText();
         initSwitchers();
+        initMaplocation();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-////        initGreenDot();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frameLayout, new MapsActivity()).commit();
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        startActivity(intent);
-
     }
+
+    private void initMaplocation() {
+        locations = new ArrayList<>();
+        locations.add(new LatLng(25.0400268,121.5324778));
+        locations.add(new LatLng(25.043876,121.531424));
+        locations.add(new LatLng(25.044708, 121.534960));
+        locations.add(new LatLng(25.0446259,121.5320099));
+        locations.add(new LatLng(25.0444935,121.5277331));
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng location = new LatLng(25.0381576,121.5339065);
-        mMap.addMarker(new MarkerOptions().position(location).title("location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-        mMap.setMinZoomPreference(15);
+        setMaplocation(0);
     }
     private void initRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -122,12 +121,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         new CardSnapHelper().attachToRecyclerView(recyclerView);
     }
 
+
+    private void setMaplocation(int index) {
+        LatLng location = locations.get(index);
+        mMap.addMarker(new MarkerOptions().position(location).title(shops[index])).showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        mMap.setMinZoomPreference(18);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        if (isFinishing() && decodeMapBitmapTask != null) {
-            decodeMapBitmapTask.cancel(true);
-        }
     }
 
     private void initSwitchers() {
@@ -149,19 +153,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         descriptionsSwitcher.setFactory(new TextViewFactory(R.style.DescriptionTextView, false));
         descriptionsSwitcher.setCurrentText(getString(descriptions[0]));
 
-//        mapSwitcher = (ImageSwitcher) findViewById(R.id.ts_map);
-//        mapSwitcher.setInAnimation(this, R.anim.fade_in);
-//        mapSwitcher.setOutAnimation(this, R.anim.fade_out);
-//        mapSwitcher.setFactory(new ImageViewFactory());
-        //mapSwitcher.setImageResource(maps[0]);
-
-        mapLoadListener = new DecodeBitmapTask.Listener() {
-            @Override
-            public void onPostExecuted(Bitmap bitmap) {
-                ((ImageView)mapSwitcher.getNextView()).setImageBitmap(bitmap);
-                mapSwitcher.showNext();
-            }
-        };
     }
 
     private void initCountryText() {
@@ -173,40 +164,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         country1TextView.setX(countryOffset1);
         country2TextView.setX(countryOffset2);
-        country1TextView.setText(countries[0]);
+        country1TextView.setText(shops[0]);
         country2TextView.setAlpha(0f);
 
         country1TextView.setTypeface(Typeface.createFromAsset(getAssets(), "open-sans-extrabold.ttf"));
         country2TextView.setTypeface(Typeface.createFromAsset(getAssets(), "open-sans-extrabold.ttf"));
     }
-
-
-//    private void initGreenDot() {
-//        mapSwitcher.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                mapSwitcher.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//
-//                final int viewLeft = mapSwitcher.getLeft();
-//                final int viewTop = mapSwitcher.getTop() + mapSwitcher.getHeight() / 3;
-//
-//                final int border = 100;
-//                final int xRange = Math.max(1, mapSwitcher.getWidth() - border * 2);
-//                final int yRange = Math.max(1, (mapSwitcher.getHeight() / 3) * 2 - border * 2);
-//
-//                final Random rnd = new Random();
-//
-//                for (int i = 0, cnt = dotCoords.length; i < cnt; i++) {
-//                    dotCoords[i][0] = viewLeft + border + rnd.nextInt(xRange);
-//                    dotCoords[i][1] = viewTop + border + rnd.nextInt(yRange);
-//                }
-//
-//                greenDot = findViewById(R.id.green_dot);
-//                greenDot.setX(dotCoords[0][0]);
-//                greenDot.setY(dotCoords[0][1]);
-//            }
-//        });
-//    }
 
     private void setCountryText(String text, boolean left2right) {
         final TextView invisibleText;
@@ -263,7 +226,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             animV[1] = R.anim.slide_out_top;
         }
 
-        setCountryText(countries[pos % countries.length], left2right);
+        setCountryText(shops[pos % shops.length], left2right);
+        setMaplocation(pos % shops.length);
 
         temperatureSwitcher.setInAnimation(MainActivity.this, animH[0]);
         temperatureSwitcher.setOutAnimation(MainActivity.this, animH[1]);
@@ -279,28 +243,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         descriptionsSwitcher.setText(getString(descriptions[pos % descriptions.length]));
 
-        //showMap(maps[pos % maps.length]);
-
-        ViewCompat.animate(greenDot)
-                .translationX(dotCoords[pos % dotCoords.length][0])
-                .translationY(dotCoords[pos % dotCoords.length][1])
-                .start();
-
         currentPosition = pos;
     }
-
-    private void showMap(@DrawableRes int resId) {
-        if (decodeMapBitmapTask != null) {
-            decodeMapBitmapTask.cancel(true);
-        }
-
-        final int w = mapSwitcher.getWidth();
-        final int h = mapSwitcher.getHeight();
-
-        decodeMapBitmapTask = new DecodeBitmapTask(getResources(), resId, w, h, mapLoadListener);
-        decodeMapBitmapTask.execute();
-    }
-
 
     private class TextViewFactory implements  ViewSwitcher.ViewFactory {
 
@@ -331,19 +275,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return textView;
         }
 
-    }
-
-    private class ImageViewFactory implements ViewSwitcher.ViewFactory {
-        @Override
-        public View makeView() {
-            final ImageView imageView = new ImageView(MainActivity.this);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            final LayoutParams lp = new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            imageView.setLayoutParams(lp);
-
-            return imageView;
-        }
     }
 
     private class OnCardClickListener implements View.OnClickListener {
