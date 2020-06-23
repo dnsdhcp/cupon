@@ -79,17 +79,6 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 //		holder.minus.setOnClickListener(clickListener);
 	}
 
-	View.OnClickListener clickListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (v.getId() == R.id.plus) {
-				sum++;
-			}
-			else if (v.getId() == R.id.minus) {
-				sum--;
-			}
-		}
-	};
 	@Override
 	public int getItemCount() {
 		return purchases.size();

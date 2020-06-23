@@ -45,13 +45,6 @@ public class Checkout extends AppCompatActivity {
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 
-		RecyclerView mRecyclerView = findViewById(R.id.checkout_recycleview);
-
-		mRecyclerView.setAdapter();
-		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-
-		mRecyclerView.addItemDecoration(mDividerItemDecoration);
 		purchases = (List<Item>) intent.getSerializableExtra(CHECKOUT);
 		checkoutListAdapter = new CheckoutListAdapter(this, purchases);
 
