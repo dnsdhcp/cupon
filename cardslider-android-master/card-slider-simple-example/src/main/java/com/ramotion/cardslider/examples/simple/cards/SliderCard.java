@@ -6,7 +6,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.ramotion.cardslider.examples.simple.R;
-import com.ramotion.cardslider.examples.simple.utils.DecodeBitmapTask;
 
 import androidx.annotation.DrawableRes;
 import androidx.recyclerview.widget.RecyclerView;
