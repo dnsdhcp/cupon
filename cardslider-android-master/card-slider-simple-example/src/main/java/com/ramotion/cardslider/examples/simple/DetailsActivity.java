@@ -8,7 +8,10 @@ import android.transition.Transition;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.ramotion.cardslider.examples.simple.utils.DecodeBitmapTask;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
     private List<Item> heart_Item = new ArrayList<Item>();
     private List<Item> coco_Item = new ArrayList<Item>();
     private List<Item> misterdonut_Item = new ArrayList<Item>();
+    private List<Item> shopping_Item = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,6 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
         }
 
         initItem();
-
         mRecyclerView = findViewById(R.id.recyclerview);
 
         imageView = (ImageView)findViewById(R.id.image);
@@ -197,7 +200,6 @@ public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTa
 
         final int w = metrics.widthPixels;
         final int h = metrics.heightPixels;
-
         decodeBitmapTask = new DecodeBitmapTask(getResources(), bigResId, w, h, this);
         decodeBitmapTask.execute();
     }

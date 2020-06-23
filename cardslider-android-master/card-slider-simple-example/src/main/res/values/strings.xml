@@ -3,7 +3,18 @@
     <string name="text1">2020/3/25-6/30每周一於歡樂送刷中信LINE Pay卡\n滿$250送LINE POINTS 50點</string>
     <string name="text2">凡於2020/6/11-6/29內，一天前預購指定桶餐即享優惠</string>
     <string name="text3">凡6/13(六) 至6/17(三）「穿著警裝」或「出示警察人員服務相關證明」享有「飲品全面九折」優惠</string>
-    <string name="text4">持悠/遊/卡/悠遊聯名卡至CoCo都可門市享『雲朵系列』折價5元優惠！『美式咖啡』第二杯半價優惠！</string>-
-/    <string name="text5">即日起憑專科販售通路銷售之「專科超微米彈潤潔顏乳搶購組」內附優惠券</string>
+    <string name="text4">持悠/遊/卡/悠遊聯名卡至CoCo都可門市享『雲朵系列』折價5元優惠！『美式咖啡』第二杯半價優惠！</string>
+    <string name="text5">即日起憑專科販售通路銷售之「專科超微米彈潤潔顏乳搶購組」內附優惠券</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="shopping_car">已加入購物車</string>
+    <string name="tip">小費:</string>
+    <string name="service_fee">服務費:</string>
+    <string name="sum">總計:</string>
+    <string name="finish">送出訂單</string>
+    <string name="count_init">0</string>
+    <string name="product_name_init">Name</string>
+    <string name="price_init">$0</string>
+
+
 </resources>

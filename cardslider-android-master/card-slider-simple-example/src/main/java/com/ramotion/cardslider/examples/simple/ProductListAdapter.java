@@ -1,14 +1,24 @@
 package com.ramotion.cardslider.examples.simple;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,11 +27,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 	private Context mContext;
 	private List<Item> mItemlist;
 	private LayoutInflater mInflater;
-
+	private List<Item> purchases;
+	private  final static String CHECKOUT = "CHECKOUT";
 	public ProductListAdapter(Context context, List<Item> Itemlist) {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mItemlist = Itemlist;
+		purchases = new ArrayList<Item>();
 	}
 
 	@Override
@@ -46,7 +58,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 		public WordViewHolder(View itemView, ProductListAdapter adapter) {
 			super(itemView);
-
 			title = itemView.findViewById(R.id.title);
 			price = itemView.findViewById(R.id.price);
 			food = itemView.findViewById(R.id.food_img);
@@ -57,33 +68,45 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 		@Override
 		public void onClick(View view) {
-			// Get the position of the item that was clicked.
-//			int mPosition = getLayoutPosition();
-//
-//			// Use that to access the affected item in mWordList.
-//			String element = mWordList.get(mPosition);
-//			// Change the word in the mWordList.
-//
-//			mWordList.set(mPosition, "Clicked! " + element);
-//			// Notify the adapter, that the data has changed so it can
-//			// update the RecyclerView to display the data.
-//			mAdapter.notifyDataSetChanged();
+			int mPosition = getLayoutPosition();
+
+			purchases.add( mItemlist.get(mPosition));
+
+			String show =  mItemlist.get(mPosition).getTitle();
+			String buy = view.getResources().getString(R.string.shopping_car);
+
+			Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE)
+					.setAction("查看購物車", new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							Intent intent= new Intent(mContext, Checkout.class);
+							intent.putExtra(CHECKOUT, (Serializable) purchases);
+							mContext.startActivity(intent);
+						}
+					});
+			snackbar.setText(show+buy);
+			snackbar.show();
+//			View mView = snackbar.getView();
+//			mView.setBackgroundColor(Color.WHITE);
+//			TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+//			tv.setTextColor(Color.BLACK);
 		}
 	}
 
 	@Override
-	public ProductListAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent,
-	                                                            int viewType) {
+	public ProductListAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
 		// Inflate an item view.
 		View mItemView = mInflater.inflate(
 				R.layout.product_list, parent, false);
 		return new WordViewHolder(mItemView, this);
 	}
 
-
-
 	@Override
 	public int getItemCount() {
 		return mItemlist.size();
+	}
+
+	public List<Item> getpurchases() {
+		return purchases;
 	}
 }

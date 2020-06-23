@@ -1,6 +1,8 @@
 package com.ramotion.cardslider.examples.simple;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String mTitle;
     private String mPrice;
     private int mDrawableId;
