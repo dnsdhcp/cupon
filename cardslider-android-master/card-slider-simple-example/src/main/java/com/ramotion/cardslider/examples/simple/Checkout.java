@@ -1,6 +1,9 @@
 package com.ramotion.cardslider.examples.simple;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +44,13 @@ public class Checkout extends AppCompatActivity {
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 
+		RecyclerView mRecyclerView = findViewById(R.id.checkout_recycleview);
+
+		mRecyclerView.setAdapter();
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+
+		mRecyclerView.addItemDecoration(mDividerItemDecoration);
 		purchases = (List<Item>) intent.getSerializableExtra(CHECKOUT);
 	}
 	public void plusprice(){
