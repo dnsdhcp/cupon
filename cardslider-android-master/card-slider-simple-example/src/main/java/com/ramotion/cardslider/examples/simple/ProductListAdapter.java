@@ -2,24 +2,18 @@ package com.ramotion.cardslider.examples.simple;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.WordViewHolder> {
@@ -59,7 +53,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 		public WordViewHolder(View itemView, ProductListAdapter adapter) {
 			super(itemView);
 			title = itemView.findViewById(R.id.title);
-			price = itemView.findViewById(R.id.price);
+			price = itemView.findViewById(R.id.price_text);
 			food = itemView.findViewById(R.id.food_img);
 
 			this.mAdapter = adapter;
