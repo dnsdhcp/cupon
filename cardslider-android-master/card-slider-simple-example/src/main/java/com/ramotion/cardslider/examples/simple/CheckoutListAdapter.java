@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -67,15 +68,22 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 	}
 
 	@Override
-	public void onBindViewHolder(CheckoutListAdapter.WordViewHolder holder,int position) {
+	public void onBindViewHolder(final CheckoutListAdapter.WordViewHolder holder, final int position) {
 
-		int count = 1;
 		String name = purchases.get(position).getTitle();
-		String price = purchases.get(position).getPrice();
+		String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
 		holder.prouct_name.setText(name);
-		holder.count.setText(Integer.toString(count));
-		holder.price.setText(price );
-//		holder.plus.setOnClickListener(clickListener);
+		holder.count.setText(Integer.toString(purchases.get(position).getCount()));
+		holder.price.setText(price);
+
+
+		holder.plus.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(v.getContext(), "onclick" + position, Toast.LENGTH_LONG).show();
+			}
+		});
+//		holder.pl1us.setOnClickListener(clickListener);
 //		holder.minus.setOnClickListener(clickListener);
 	}
 
@@ -83,4 +91,5 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 	public int getItemCount() {
 		return purchases.size();
 	}
+
 }

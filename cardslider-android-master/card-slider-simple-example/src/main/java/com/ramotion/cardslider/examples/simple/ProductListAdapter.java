@@ -23,11 +23,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 	private LayoutInflater mInflater;
 	private List<Item> purchases;
 	private  final static String CHECKOUT = "CHECKOUT";
+	private List<Integer> isbuy;
+
 	public ProductListAdapter(Context context, List<Item> Itemlist) {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mItemlist = Itemlist;
 		purchases = new ArrayList<Item>();
+		isbuy = new ArrayList<Integer>();
 	}
 
 	@Override
@@ -35,7 +38,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 		// Retrieve the data for that position.
 		String name = mItemlist.get(position).getTitle();
-		String money = mItemlist.get(position).getPrice();
+		String money = "$" + Integer.toString(mItemlist.get(position).getPrice());
 		int picture = mItemlist.get(position).getDrawableId();
 		// Add the data to the view holder.
 		holder.title.setText(name);
@@ -62,9 +65,21 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 		@Override
 		public void onClick(View view) {
+			boolean	duplicate = false;
 			int mPosition = getLayoutPosition();
-
-			purchases.add( mItemlist.get(mPosition));
+			if(isbuy.size()>0){
+				for(int i=0;i<isbuy.size();i++){
+					if(isbuy.get(i) == mPosition){
+						purchases.get(i).plusCount();
+						duplicate = true;
+						break;
+					}
+				}
+			}
+			if(!duplicate){
+				isbuy.add(mPosition);
+				purchases.add( mItemlist.get(mPosition));
+			}
 
 			String show =  mItemlist.get(mPosition).getTitle();
 			String buy = view.getResources().getString(R.string.shopping_car);

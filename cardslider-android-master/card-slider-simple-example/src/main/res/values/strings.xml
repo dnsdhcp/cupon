@@ -8,7 +8,7 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="shopping_car">已加入購物車</string>
-    <string name="tip">小費:</string>
+    <string name="tip">小計:</string>
     <string name="service_fee">服務費:</string>
     <string name="sum">總計:</string>
     <string name="finish">送出訂單</string>
