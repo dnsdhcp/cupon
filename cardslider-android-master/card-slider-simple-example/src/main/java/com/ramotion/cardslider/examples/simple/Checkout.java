@@ -55,8 +55,17 @@ public class Checkout extends AppCompatActivity {
 		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
 
 		mRecyclerView.addItemDecoration(mDividerItemDecoration);
-	}
-	public void add(View view){
 
+		String total_price = Integer.toString(calc_total_price());
+		tip_text.setText(getResources().getString(R.string.tip) +total_price);
+		sum_text.setText( getResources().getString(R.string.sum) + total_price);
+	}
+
+	public int calc_total_price(){
+		int sum = 0;
+		for(int i=0;i<purchases.size();i++){
+			sum += purchases.get(i).getTotalPrice();
+		}
+		return sum;
 	}
 }

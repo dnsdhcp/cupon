@@ -50,7 +50,7 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 //			mWordList.set(mPosition, "Clicked! " + element);
 //			// Notify the adapter, that the data has changed so it can
 //			// update the RecyclerView to display the data.
-//			mAdapter.notifyDataSetChanged();
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -70,21 +70,32 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 	@Override
 	public void onBindViewHolder(final CheckoutListAdapter.WordViewHolder holder, final int position) {
 
-		String name = purchases.get(position).getTitle();
-		String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
-		holder.prouct_name.setText(name);
-		holder.count.setText(Integer.toString(purchases.get(position).getCount()));
-		holder.price.setText(price);
-
-
 		holder.plus.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(v.getContext(), "onclick" + position, Toast.LENGTH_LONG).show();
+				purchases.get(position).plusCount();
+				String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
+				holder.count.setText(Integer.toString(purchases.get(position).getCount()));
+				holder.price.setText(price);
+
 			}
 		});
-//		holder.pl1us.setOnClickListener(clickListener);
-//		holder.minus.setOnClickListener(clickListener);
+		holder.minus.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				purchases.get(position).minusCount();
+				String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
+				holder.count.setText(Integer.toString(purchases.get(position).getCount()));
+				holder.price.setText(price);
+			}
+		});
+
+		String name = purchases.get(position).getTitle();
+		String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
+
+		holder.prouct_name.setText(name);
+		holder.count.setText(Integer.toString(purchases.get(position).getCount()));
+		holder.price.setText(price);
 	}
 
 	@Override
