@@ -47,9 +47,7 @@ public class Checkout extends AppCompatActivity{
 	private NotificationManager mNotificationManager;
 
 	private FirebaseFirestore db;
-
 	private String order_num;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +167,6 @@ public class Checkout extends AppCompatActivity{
 		if(!IsPickTime){
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setTitle(getResources().getString(R.string.alert_title));
-//			dialog.setMessage(getResources().getString(R.string.alert_title));
 			dialog.setNegativeButton(getResources().getString(R.string.pick_time),new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
