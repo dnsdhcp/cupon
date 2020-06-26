@@ -15,6 +15,19 @@
     <string name="count_init">0</string>
     <string name="product_name_init">Name</string>
     <string name="price_init">$0</string>
+    <string name="time_text">取餐時間</string>
+
+    <string name="pick_time">設定時間</string>
+    <string name="alert_title">取餐時間尚未設定</string>
+
+    <string name="settime">設定完成!</string>
+    <string name="notify">時間到後系統將會提醒您!</string>
+
+    <string name="order_title">取餐時間到喽!</string>
+    <string name="order_content">取餐編號: </string>
+
+    <string name="channel_name">取餐</string>
+    <string name="ordernum"></string>
 
 
 </resources>

@@ -20,7 +20,7 @@ public class Item implements Serializable {
 
     public void plusCount(){Count ++;}
 
-    public void minusCount(){ if(Count>0) Count --; }
+    public void minusCount(){ if(Count>1) Count --; }
 
     public int getTotalPrice(){return Count * mPrice;}
 

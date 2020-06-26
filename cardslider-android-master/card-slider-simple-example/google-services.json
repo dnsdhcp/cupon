@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "136723913794",
+    "firebase_url": "https://reserve-3b38e.firebaseio.com",
+    "project_id": "reserve-3b38e",
+    "storage_bucket": "reserve-3b38e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136723913794:android:7e810157a5f680d6cf21db",
+        "android_client_info": {
+          "package_name": "com.ramotion.cardslider.examples.simple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136723913794-r68l6f875p8eqj2mk5dsegphti40imiv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ramotion.cardslider.examples.simple",
+            "certificate_hash": "a45f50f826e4d3f148dea3b18fbac5f60190c98c"
+          }
+        },
+        {
+          "client_id": "136723913794-h6m3pet3440e3nlgfer6kenr8duevmvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwvfNlFNmkhyWbAgUVZoHua16crRIk38Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136723913794-h6m3pet3440e3nlgfer6kenr8duevmvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
