@@ -19,6 +19,7 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 	private final LayoutInflater mInflater;
 	private List<Item> purchases;
 	private  int sum = 0;
+	private Context mContext;
 	class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		final CheckoutListAdapter mAdapter;
 
@@ -54,9 +55,14 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 		}
 	}
 
+	public interface ListItemClickListener{
+		void onItemClick(int position);
+	}
+
 	public CheckoutListAdapter(Context context, List<Item> Itemlist) {
 		mInflater = LayoutInflater.from(context);
 		this.purchases = Itemlist;
+		this.mContext = context;
 	}
 
 	@Override
@@ -77,6 +83,7 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 				String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
 				holder.count.setText(Integer.toString(purchases.get(position).getCount()));
 				holder.price.setText(price);
+				((Checkout)mContext).SetText();
 
 			}
 		});
@@ -88,6 +95,8 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 				String price = "$" +  Integer.toString(count);
 				holder.count.setText(Integer.toString(count));
 				holder.price.setText(price);
+				((Checkout)mContext).SetText();
+
 			}
 		});
 

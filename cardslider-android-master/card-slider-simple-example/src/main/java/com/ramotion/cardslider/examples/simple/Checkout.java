@@ -7,28 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -36,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
-public class Checkout extends AppCompatActivity {
+public class Checkout extends AppCompatActivity{
 
 	private TextView tip_text;
 	private TextView service_fee_text;
@@ -59,6 +49,7 @@ public class Checkout extends AppCompatActivity {
 	private FirebaseFirestore db;
 
 	private String order_num;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +80,13 @@ public class Checkout extends AppCompatActivity {
 
 		mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
+		SetText();
+	}
+
+	public  void SetText(){
 		String total_price = Integer.toString(calc_total_price());
 		tip_text.setText(getResources().getString(R.string.tip) +total_price);
+		service_fee_text.setText(getResources().getString(R.string.service_fee) + 0 );
 		sum_text.setText( getResources().getString(R.string.sum) + total_price);
 	}
 
@@ -187,6 +183,5 @@ public class Checkout extends AppCompatActivity {
 			db.collection("order").add(purchases.get(i));
 		}
 	}
-
 
 }
