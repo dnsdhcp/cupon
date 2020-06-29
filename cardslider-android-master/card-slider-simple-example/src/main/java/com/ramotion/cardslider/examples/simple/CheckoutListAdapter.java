@@ -76,9 +76,8 @@ public class CheckoutListAdapter extends RecyclerView.Adapter<CheckoutListAdapte
 			@Override
 			public void onClick(View v) {
 				purchases.get(position).minusCount();
-				int count = purchases.get(position).getTotalPrice();
-				String price = "$" +  Integer.toString(count);
-				holder.count.setText(Integer.toString(count));
+				String price = "$" +  Integer.toString(purchases.get(position).getTotalPrice());
+				holder.count.setText(Integer.toString(purchases.get(position).getCount()));
 				holder.price.setText(price);
 				((Checkout)mContext).SetText();
 
