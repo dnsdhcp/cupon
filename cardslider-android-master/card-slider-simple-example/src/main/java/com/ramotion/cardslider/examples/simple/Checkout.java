@@ -10,12 +10,14 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -31,6 +33,8 @@ public class Checkout extends AppCompatActivity{
 	private TextView tip_text;
 	private TextView service_fee_text;
 	private TextView sum_text;
+
+	private ImageView logo;
 
 	private ImageButton plus;
 	private ImageButton minus;
@@ -49,6 +53,7 @@ public class Checkout extends AppCompatActivity{
 	private FirebaseFirestore db;
 	private String order_num;
 
+	DetailsActivity detailsActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,11 +64,12 @@ public class Checkout extends AppCompatActivity{
 		finish = findViewById(R.id.finish);
 		plus = findViewById(R.id.plus);
 		minus = findViewById(R.id.minus);
+		logo = findViewById(R.id.shop_logo);
 
+		detailsActivity = new DetailsActivity();
 		IsPickTime = false;
 
 		order_num = getResources().getString(R.string.ordernum);
-
 		db = FirebaseFirestore.getInstance();
 		purchases = new ArrayList<Item>();
 		Intent intent = this.getIntent();
@@ -71,15 +77,42 @@ public class Checkout extends AppCompatActivity{
 		purchases = (List<Item>) intent.getSerializableExtra(CHECKOUT);
 		checkoutListAdapter = new CheckoutListAdapter(this, purchases);
 
+		loadIMG();
+
 		RecyclerView mRecyclerView = findViewById(R.id.checkout_recycleview);;
 		mRecyclerView.setAdapter(checkoutListAdapter);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
 
 		mRecyclerView.addItemDecoration(mDividerItemDecoration);
-
 		SetText();
+
+
 	}
+
+	private void loadIMG() {
+		int img = 0;
+		switch (purchases.get(0).getMshop()) {
+			case 0:
+				img = R.drawable.mcdonalds_logo;
+				break;
+			case 1:
+				img = R.drawable.kfc_logo;
+				break;
+			case 2:
+				img = R.drawable.heart_logo;
+				break;
+			case 3:
+				img = R.drawable.coco_logo;
+				break;
+			case 4:
+				img = R.drawable.misterdonut_small_logo;
+				break;
+			default: img = R.drawable.mcdonalds_logo;
+		}
+		logo.setImageResource(img);
+	}
+
 
 	public  void SetText(){
 		String total_price = Integer.toString(calc_total_price());
@@ -125,7 +158,6 @@ public class Checkout extends AppCompatActivity{
 					}
 				});
 				dialog.show();
-
 				CreateNotification();
 			}
 		}, hour, minute, false);//Yes 24 hour time
@@ -139,7 +171,7 @@ public class Checkout extends AppCompatActivity{
 		return random;
 	}
 	public void CreateNotification(){
-		order_num += Integer.toString(CreateNum());
+		order_num = Integer.toString(CreateNum());
 
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -162,6 +194,16 @@ public class Checkout extends AppCompatActivity{
 		}
 	}
 
+	public  void ShowOrder_num(){
+		AlertDialog.Builder order = new AlertDialog.Builder(Checkout.this);
+		order.setTitle("您的取餐編號為: " + order_num);
+		order.setNegativeButton("確定",new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+			}
+		});
+		order.show();
+	}
 
 	public void SendOrder(final View view) {
 		if(!IsPickTime){
@@ -175,10 +217,11 @@ public class Checkout extends AppCompatActivity{
 			});
 			dialog.show();
 		}
-
 		for(int i=0;i<purchases.size();i++){
 			db.collection("order").add(purchases.get(i));
 		}
 	}
 
 }
+
+

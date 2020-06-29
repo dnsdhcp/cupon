@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final int[] descriptions = {R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5};
     private final String[] shops = {"麥當勞", "肯德基", "清心福全", "Coco", "Mister Donut"};
     private final String[] places = {"刷中信LINE Pay卡享回饋", "畢業季揪團享優惠送很大", "守護人民的英雄辛苦了！", "戀上雲朵", "Mister Donut×專科"};
-    private final String[] temperatures = {"21°C", "19°C", "17°C", "23°C", "20°C"};
+//    private final String[] temperatures = {"21°C", "19°C", "17°C", "23°C", "20°C"};
     private final String[] times = {"週一到週日    0:00-24:00", "週一到週日    0:00-24:00", "週一到週日    8:30-22:00", "週一到週日  11:00~22:45", "週一到週日  11:00-22:00"};
     private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 20, new OnCardClickListener());
 
@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void initSwitchers() {
-        temperatureSwitcher = (TextSwitcher) findViewById(R.id.ts_temperature);
+/*        temperatureSwitcher = (TextSwitcher) findViewById(R.id.ts_temperature);
         temperatureSwitcher.setFactory(new TextViewFactory(R.style.TemperatureTextView, true));
-        temperatureSwitcher.setCurrentText(temperatures[0]);
+        temperatureSwitcher.setCurrentText(temperatures[0]);*/
 
         placeSwitcher = (TextSwitcher) findViewById(R.id.ts_place);
         placeSwitcher.setFactory(new TextViewFactory(R.style.PlaceTextView, false));
@@ -213,9 +213,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setCountryText(shops[pos % shops.length], left2right);
         setMaplocation(pos % shops.length);
 
-        temperatureSwitcher.setInAnimation(MainActivity.this, animH[0]);
-        temperatureSwitcher.setOutAnimation(MainActivity.this, animH[1]);
-        temperatureSwitcher.setText(temperatures[pos % temperatures.length]);
+//        temperatureSwitcher.setInAnimation(MainActivity.this, animH[0]);
+//        temperatureSwitcher.setOutAnimation(MainActivity.this, animH[1]);
+//        temperatureSwitcher.setText(temperatures[pos % temperatures.length]);
 
         placeSwitcher.setInAnimation(MainActivity.this, animV[0]);
         placeSwitcher.setOutAnimation(MainActivity.this, animV[1]);

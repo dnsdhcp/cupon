@@ -7,11 +7,13 @@ public class Item implements Serializable {
     private int mPrice;
     private int mDrawableId;
     private int Count;
+    private int mshop;
 
-    public Item(String title, int price, int drawableId)
+    public Item(String title, int price, int drawableId, int shop)
     {
         mTitle = title;
         mPrice = price;
+        mshop = shop;
         mDrawableId = drawableId;
         Count = 1;
     }
@@ -31,6 +33,8 @@ public class Item implements Serializable {
     }
 
     public int getPrice() { return mPrice; }
+
+    public int getMshop() { return mshop; }
 
     public int getDrawableId() { return mDrawableId; }
 }
